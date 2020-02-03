@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h2 class="text-center">Join Today</h2>
+<h2 class="text-center">Sign In</h2>
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8 col-sm-12">
@@ -11,10 +11,10 @@
             {% csrf_token %}
             {{ form | crispy }}
             <div class="form-group">
-                <button class="btn btn-outline-secondary" type="submit">Register</button>
+                <button class="btn btn-outline-secondary" type="submit">Login</button>
             </div>
             <div class="form-group">
-                <p class="text-muted">Already Have an Account? <a href="{% url 'my_users:login' %}">Sign In</a></p>
+                <p class="text-muted">Create an Account? <a href="{% url 'my_users:register' %}">Sign Up</a></p>
             </div>
         </form>
     </div>

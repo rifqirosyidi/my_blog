@@ -29,10 +29,17 @@
             <div class="col-4 text-center">
                 <a class="blog-header-logo text-dark" href="{% url 'my_blog:home' %}">My Blog</a>
             </div>
+            {% if user.is_authenticated %}
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <a class="btn btn-sm btn-outline-secondary mx-2" href="#">Sign in</a>
-                <a class="btn btn-sm btn-outline-secondary mx-2" href="#">Sign up</a>
+                <a class="btn btn-sm btn-outline-secondary mx-2" href="{% url 'my_users:profile' %}">Profile</a>
+                <a class="btn btn-sm btn-outline-secondary mx-2" href="{% url 'my_users:logout' %}">Sign out</a>
             </div>
+            {% else %}
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="btn btn-sm btn-outline-secondary mx-2" href="{% url 'my_users:login' %}">Sign in</a>
+                <a class="btn btn-sm btn-outline-secondary mx-2" href="{% url 'my_users:register' %}">Sign up</a>
+            </div>
+            {% endif %}
         </div>
     </header>
 

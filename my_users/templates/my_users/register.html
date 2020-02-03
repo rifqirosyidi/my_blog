@@ -1,18 +1,24 @@
 {% extends 'my_blog/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
-<div>
-    <form action="" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="form-group">
-            <button class="btn btn-outline-secondary" type="submit">Register</button>
-        </div>
-        <div class="form-group">
-            <p class="text-muted">Already Have an Account? <a href="">Sign In</a></p>
-        </div>
-    </form>
+<h2 class="text-center">Join Today</h2>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 col-sm-12">
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <div class="form-group">
+                <button class="btn btn-outline-secondary" type="submit">Register</button>
+            </div>
+            <div class="form-group">
+                <p class="text-muted">Already Have an Account? <a href="">Sign In</a></p>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
 </div>
 
 {% endblock content %}

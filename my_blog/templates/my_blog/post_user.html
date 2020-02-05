@@ -4,9 +4,13 @@
 <main role="main">
     <div class="row">
         <div class="col-md-8 blog-main">
-            <h3 class="pb-4 mb-4 font-italic">
-                Latest Posts
+            <div class="pb-4 mb-4 ">
+            <h3 class="font-italic">
+                Posts by {{ author.first_name }} {{ author.last_name }},
             </h3>
+            <small>Total Post : </small>
+            <span class="badge badge-pill badge-primary">{{ page_obj.paginator.count }} Post</span>
+                </div>
             {% for post in posts %}
             <div class="blog-post">
                 <div class="col-2">
@@ -17,7 +21,7 @@
                     <h2 class="blog-post-title"><a class="text-black" href="{% url 'my_blog:detail' post.pk %}">{{ post.title }}</a></h2>
                     <p class="blog-post-meta">
                         {{ post.created_at | date:"F d, Y" }}
-                        by <a href="{% url 'my_blog:user_post' post.author_id %}">{{ post.author.first_name }} {{post.author.last_name }}</a>
+                        by <a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a>
                     </p>
                 </div>
                 <p>{{ post.content }}</p>

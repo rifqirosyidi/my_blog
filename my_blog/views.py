@@ -1,13 +1,31 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Post
+from django.contrib.auth.models import User
 
 
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
     ordering = ['-created_at']
+    paginate_by = 5
+
+
+class UserPostListView(ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'my_blog/post_user.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        user = get_object_or_404(User, id=self.kwargs.get('user_id'))
+        return Post.objects.filter(author=user).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        kwargs['author'] = get_object_or_404(User, id=self.kwargs.get('user_id'))
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        return context
 
 
 class PostDetailView(DetailView):

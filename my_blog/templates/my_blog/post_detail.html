@@ -1,0 +1,45 @@
+{% extends 'my_blog/base.html' %}
+
+{% block content %}
+<main role="main">
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            <div class="blog-post">
+                <div class="col-2">
+                    <img src="{{ post.author.profile.image.url }}"
+                         class="rounded mr-4 border border-outline-secondary float-left img-fluid" alt="...">
+                </div>
+                <div class="col-10">
+                    <h2 class="blog-post-title">{{ post.title }}</h2>
+                    <div class="blog-post-meta">
+                        {{ post.created_at | date:"F d, Y" }}
+                        by <a href="#">{{ post.author }}</a>
+
+                        {% if post.author == user %}
+                        <div class="mt-2">
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'my_blog:update' post.id %}">Edit
+                                Post</a>
+                            <a class="btn btn-sm btn-outline-danger" href="{% url 'my_blog:delete' post.id %}">Delete
+                                Post</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            <p>{{ post.content }}</p>
+
+        </div>
+
+        <nav class="blog-pagination">
+            <a class="btn btn-outline-primary" href="#">Older</a>
+            <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+        </nav>
+
+    </div><!-- /.blog-main -->
+
+    {% include 'my_blog/includes/blog_sidebar.html' %}
+
+    </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+{% endblock content %}

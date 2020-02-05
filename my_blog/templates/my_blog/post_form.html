@@ -1,0 +1,36 @@
+{% extends 'my_blog/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<main role="main">
+    <div class="row">
+        <div class="col-md-8 blog-main">
+            <div class="blog-post">
+                <h3 class="pb-4 mb-4 font-italic">
+                    Create New Post
+                </h3>
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ form | crispy }}
+                    {% if object %}
+                        <button class="btn btn-outline-secondary" type="submit">Update Posts</button>
+                    {% else %}
+                        <button class="btn btn-outline-secondary" type="submit">Publish</button>
+                    {% endif %}
+                </form>
+            </div>
+
+            <nav class="blog-pagination">
+                <a class="btn btn-outline-primary" href="#">Older</a>
+                <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
+            </nav>
+
+        </div><!-- /.blog-main -->
+
+        {% include 'my_blog/includes/blog_sidebar.html' %}
+
+    </div><!-- /.row -->
+
+</main><!-- /.container -->
+
+{% endblock content %}

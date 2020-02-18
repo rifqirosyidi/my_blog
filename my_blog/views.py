@@ -11,6 +11,11 @@ class PostListView(ListView):
     ordering = ['-created_at']
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:10]
+        return context
+
 
 class UserPostListView(ListView):
     model = Post

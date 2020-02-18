@@ -11,10 +11,13 @@
             {% csrf_token %}
             {{ form | crispy }}
             <div class="form-group">
-                <button class="btn btn-outline-secondary" type="submit">Login</button>
+                <button class="btn btn-outline-primary" type="submit">Login</button>
             </div>
             <div class="form-group">
-                <p class="text-muted">Create an Account? <a href="{% url 'my_users:register' %}">Sign Up</a></p>
+                <p class="text-muted">Create an Account? <a href="{% url 'register' %}">Sign Up</a></p>
+            </div>
+            <div class="form-group">
+                <p class="text-muted">Forgot Your Password? <a href="{% url 'password_reset' %}">Reset Password</a></p>
             </div>
         </form>
     </div>

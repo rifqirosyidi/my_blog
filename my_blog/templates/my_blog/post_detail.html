@@ -13,7 +13,7 @@
                     <h2 class="blog-post-title">{{ post.title }}</h2>
                     <div class="blog-post-meta">
                         {{ post.created_at | date:"F d, Y" }}
-                        by <a href="#">{{ post.author }}</a>
+                        by <a href="{% url 'my_blog:user_post' post.author_id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a>
 
                         {% if post.author == user %}
                         <div class="mt-2">

@@ -11,6 +11,7 @@
                 </h3>
                 <form action="" method="POST">
                     {% csrf_token %}
+                    {{ form.media }}
                     {{ form | crispy }}
                     {% if object %}
                         <button class="btn btn-outline-secondary" type="submit">Update Posts</button>

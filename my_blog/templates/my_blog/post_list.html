@@ -20,7 +20,7 @@
                         by <a href="{% url 'my_blog:user_post' post.author_id %}">{{ post.author.first_name }} {{post.author.last_name }}</a>
                     </p>
                 </div>
-                <p>{{ post.content }}</p>
+                <p>{{ post.content|safe|truncatechars:250 }}</p>
 
             </div><!-- /.blog-post -->
             {% endfor %}

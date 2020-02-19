@@ -13,7 +13,7 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:10]
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:15]
         return context
 
 
@@ -30,11 +30,17 @@ class UserPostListView(ListView):
     def get_context_data(self, **kwargs):
         kwargs['author'] = get_object_or_404(User, id=self.kwargs.get('user_id'))
         context = super(UserPostListView, self).get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:15]
         return context
 
 
 class PostDetailView(DetailView):
     model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:15]
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
@@ -44,6 +50,12 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+    def get_context_data(self, **kwargs):
+        context = super(PostCreateView, self).get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:15]
+        return context
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
@@ -60,6 +72,11 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         return False
 
+    def get_context_data(self, **kwargs):
+        context = super(PostUpdateView, self).get_context_data(**kwargs)
+        context['recent_posts'] = Post.objects.all().order_by('-created_at')[:15]
+        return context
+
 
 class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
@@ -70,10 +87,3 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-
-def about(request):
-    context = {
-        'title': 'About'
-    }
-    return render(request, 'my_blog/about.html', context)

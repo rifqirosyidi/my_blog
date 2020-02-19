@@ -1,3 +1,7 @@
 .text-black {
     color: black !important;
 }
+
+#cke_id_content {
+    width: 100% !important;
+}
